@@ -1,12 +1,13 @@
 #10 Lới khuyên giúp nâng kỹ năng Git của bạn lên tầm cao mới
 
-Gần đây, chúng tôi đã phát hành một vài hướng dẫn để giúp bạn làm quen với nền tảng Git và sử dụng Git trong môi trường làm việc nhóm. Các lệnh mà chúng ta đã thảo luận đủ để giúp một nhà phát triển tồn tại trong thế giới Git. Trong bài đăng này, chúng tôi sẽ cố gắng tìm hiểu cách quản lý thời gian một cách hiệu quả và tận dụng các tính năng mà Git cung cấp..
+Gần đây, chúng tôi đã đưa ra một vài hướng dẫn để giúp bạn làm quen với nền tảng Git và sử dụng Git trong môi trường làm việc nhóm. Các lệnh mà chúng ta đã thảo luận đủ để giúp một nhà phát triển tồn tại trong thế giới Git. Trong bài đăng này, chúng tôi sẽ cố gắng tìm hiểu cách quản lý thời gian một cách hiệu quả và tận dụng các tính năng mà Git cung cấp..
 
 Lưu ý: Một số lệnh trong bài viết này bao gồm một phần của lệnh trong dấu ngoặc vuông (ví dụ: git add -p [file_name]). Trong những ví dụ này, bạn sẽ chèn thêm số cần thiết,định danh, vân vân mà không có dấu ngoặc vuông.
 
+
 ##1. Git tự hoàn thiện
 
-Nếu bạn chạy lệnh Git thông qua dòng lệnh, đó là một công việc mệt mỏi mỗi lần gõ các lệnh bằng tay. Để giúp đỡ việc này, bạn có thể tự động hoàn thành lệnh Git trong vòng vài phút.
+Nếu bạn chạy lệnh Git thông qua "command line", đó là một công việc mệt mỏi mỗi lần gõ các lệnh bằng tay. Để giúp đỡ việc này, bạn có thể tự động hoàn thành lệnh Git trong vòng vài phút.
 
 Để có được script, hãy chạy lệnh sau trong hệ thống Unix:
 
@@ -54,10 +55,11 @@ Và trong ảnh chụp màn hình bên dưới, bạn có thể thấy lệnh n�
 
 ##4. Xem lại lịch sử của Repository
 
+
 Chúng tôi đã có một cái nhìn về việc sử dụng ```git log``` trong một hướng dẫn trước đó, tuy nhiên, có ba lựa chọn mà bạn nên biết.
 
 * ```--oneline``` – Nén thông tin hiển thị bên cạnh mỗi commit để giảm bớt commit và commit message, tất cả được hiển thị trong một dòng.
-* ```--graph``` – Lựa chọn này cho ra một biểu diễn đồ họa dựa trên văn bản của lịch sử ở phía bên tay trái của đầu ra. Không sử dụng nếu bạn đang xem lịch sử cho một nhánh.
+* ```--graph``` – Lựa chọn này cho ra một biểu diễn đồ họa dựa trên văn bản lịch sử ở phía bên tay trái của đầu ra. Không sử dụng nếu bạn đang xem lịch sử cho một nhánh.
 * ```--all``` – Cho thấy lịch sử của tất cả các nhánh.
 
 Dưới đây là kết quả khi kết hợp các lựa chọn:
@@ -68,9 +70,9 @@ Dưới đây là kết quả khi kết hợp các lựa chọn:
 
 Hãy nói rằng bạn đã commit một điều gì đó mà bạn không muốn và kết thúc bằng cách thực hiện hard reset để trở lại trạng thái trước của bạn. Sau đó, bạn nhận ra rằng bạn đã mất một số thông tin khác trong tiến trình và muốn khôi phục lại hoặc ít nhất là xem nó. Đây là lúc ```git reflog``` có thể giúp đỡ bạn.
 
-Một ```git log``` đơn giản cho bạn thấy commit mới nhất, cha của nó, cha của cha nó, vân vân. Tuy nhiên, ```git reflog``` là một danh sách các commit mà head trỏ đến. Hãy nhớ rằng nó là local trong hệ thống của bạn; nó không phải là một phần trong repository của bạn và không bao gồm trong push hoặc merge.
+Một ```git log``` đơn giản cho bạn thấy commit mới nhất, cha của nó, cha của cha nó, vân vân. Tuy nhiên, ```git reflog``` là một danh sách các commit mà được chấm ở đầu. Hãy nhớ rằng nó là local trong hệ thống của bạn; nó không phải là một phần trong repository của bạn và không bao gồm trong push hoặc merge.
 
-Nếu tôi chạy ```git log```, tôi nhận được các commiy là một phần của repository của tôi:
+Nếu tôi chạy ```git log```, tôi nhận được các commit là một phần của repository của tôi:
 
 ![ahihi](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2014/06/1402946446git-ninja-04.png)
 
@@ -80,9 +82,9 @@ Tuy nhiên, ```git reflog``` cho thấy một commit (```b1b0ee9 - HEAD @ {4} ``
 
 ##6. Phân loại các phần của một file đã thay đổi cho một commit
 
-Nói chung, cách làm tốt là tạo commit dựa trên tính năng, nghĩa là mỗi commit phải đại diện cho một tính năng hoặc sửa lỗi. Hãy xem xét điều gì sẽ xảy ra nếu bạn cố định hai lỗi hoặc thêm nhiều tính năng mà không commit sự thay đổi. Trong trường hợp tình huống như vậy, bạn có thể đặt những thay đổi trong một commit duy nhất. Nhưng có một cách tốt hơn: Stage các file riêng lẻ và commit chúng một cách riêng lẻ.
+Nói chung, cách làm tốt là tạo commit dựa trên tính năng, nghĩa là mỗi commit phải đại diện cho một tính năng hoặc sửa lỗi. Giả sử điều gì sẽ xảy ra nếu bạn cố định hai lỗi hoặc thêm nhiều tính năng mà không commit sự thay đổi. Trong trường hợp tình huống như vậy, bạn có thể đặt những thay đổi trong một commit duy nhất. Nhưng có một cách tốt hơn: Stage các file riêng lẻ và commit chúng một cách riêng lẻ.
 
-Giả sử bạn đã thực hiện nhiều thay đổi cho một file và muốn chúng xuất hiện trong các commit riêng biệt. Trong trường hợp đó, chúng ta thêm các file bằng tiền tố ```-p``` vào các lệnh thêm của chúng ta.
+Giả sử bạn đã thực hiện nhiều thay đổi cho một file và muốn chúng xuất hiện trong các commit riêng biệt. Trong trường hợp đó, chúng ta thêm các file bằng tiền tố ```-p``` vào câu lệnh add.
 
 ```
 
@@ -142,14 +144,14 @@ Sau đó bạn được yêu cầu cung cấp thông báo cho commit mới. Quá
 
 ##8. Stash những thay đổi chưa được commit
 
-Giả sử bạn đang làm việc trên một lỗi nhất định hoặc một tính năng, và bạn đột nhiên được yêu cầu để mô tả công việc của bạn. Công việc hiện tại của bạn chưa đủ để commit, và bạn không thể đưa ra ở giai đoạn này (mà không trở về những thay đổi). Trong tình huống như vậy, ```git stash``` đến để giải cứu bạn. Stash bản chất là thực hiện tất cả các thay đổi của bạn và lưu trữ chúng để sử dụng sau này. Để stash các thay đổi của bạn, bạn chỉ cần chạy lệnh sau:
+Giả sử bạn đang làm việc trên một lỗi nhất định hoặc một tính năng, và bạn đột nhiên được yêu cầu để mô tả công việc của bạn. Công việc hiện tại của bạn chưa xong để được commit, và bạn không thể đưa ra ở giai đoạn này (mà không revert những thay đổi). Trong tình huống như vậy, ```git stash``` đến để giải cứu bạn. Stash bản chất là thực hiện tất cả các thay đổi của bạn và lưu trữ chúng để sử dụng sau này. Để stash các thay đổi của bạn, bạn chỉ cần chạy lệnh sau:
 ```
 
 git stash
 
 ```
 
-Để kiểm tra danh sách các stashe, bạn có thể chạy như sau:
+Để kiểm tra danh sách các stash, bạn có thể chạy như sau:
 
 ```
 
@@ -159,7 +161,7 @@ git stash list
 
 ![ahihi](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2014/06/1402946458git-ninja-12.png)
 
-Nếu bạn muốn un-stash và phục hồi các thay đổi chưa commit, bạn gọi stash:
+Nếu bạn muốn bỏ stash và phục hồi các thay đổi chưa commit, bạn gọi stash:
 
 ```
 
@@ -177,10 +179,9 @@ git stash apply stash@{2}
 
 ![ahihi](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2014/06/1402946461git-ninja-13.png)
 
-
 ##9. Kiểm tra những commit bị mất
 
-Mặc dù ```reflog``` là một cách để kiểm tra các commit bị mất, nó không khả thi trong các repository lớn. Đây là khi lệnh ```fsck``` (kiểm tra hệ thống file) sẽ giúp bạn.
+Mặc dù ```reflog``` là một cách để kiểm tra các commit bị mất, nó không khả thi trong các repository lớn. Đây là khi lệnh ```fsck``` (Hệ thống kiếm tra file) sẽ giúp bạn.
 
 ```
 
@@ -193,7 +194,6 @@ git fsck --lost-found
 Ở đây bạn có thể thấy một commit bị mất. Bạn có thể kiểm tra các thay đổi trong commit bằng cách chạy ```git show [commit_hash]``` hoặc khôi phục nó bằng cách chạy ```git merge [commit_hash] ```.
 
 ```git fsck``` có lợi thế hơn```reflog```. Hãy nói rằng bạn đã xóa một remote branch và sau đó clone repository. Với ```fsck``` bạn có thể tìm kiếm và khôi phục các remote branch bị xóa.
-
 
 ##10. Cherry Pick
 
